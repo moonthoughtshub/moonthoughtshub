@@ -1,524 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MoonThoughtsHub — Think. Dream. Transcend.</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --sky:    #7EC8E3;
-      --glow:   #A8DADC;
-      --gold:   #C9A84C;
-      --deep:   #040D1A;
-      --void:   #000810;
-      --mist:   rgba(126,200,227,0.08);
-      --border: rgba(126,200,227,0.18);
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--void);
-      color: #cce8f4;
-      font-family: 'Raleway', sans-serif;
-      font-weight: 300;
-      overflow-x: hidden;
-      cursor: default;
-    }
-
-    /* ── STARFIELD ── */
-    #stars {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    /* ── NAV ── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      justify-content: flex-end;
-      gap: 2.5rem;
-      padding: 1.4rem 3rem;
-      background: linear-gradient(to bottom, rgba(4,13,26,0.9), transparent);
-      font-family: 'Raleway', sans-serif;
-      font-size: 0.78rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-    }
-
-    nav a {
-      color: var(--sky);
-      text-decoration: none;
-      opacity: 0.7;
-      transition: opacity 0.3s;
-    }
-    nav a:hover { opacity: 1; }
-
-    /* ── HERO ── */
-    #hero {
-      position: relative;
-      z-index: 1;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 6rem 2rem 4rem;
-    }
-
-    .moon-ring {
-      width: 220px; height: 220px;
-      border-radius: 50%;
-      border: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: 3rem;
-      position: relative;
-      animation: float 6s ease-in-out infinite;
-    }
-    .moon-ring::before {
-      content: '';
-      position: absolute;
-      inset: -18px;
-      border-radius: 50%;
-      border: 1px solid rgba(126,200,227,0.07);
-    }
-    .moon-ring::after {
-      content: '';
-      position: absolute;
-      inset: -36px;
-      border-radius: 50%;
-      border: 1px solid rgba(126,200,227,0.04);
-    }
-    .moon-symbol {
-      font-size: 5rem;
-      line-height: 1;
-      filter: drop-shadow(0 0 24px var(--sky));
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50%       { transform: translateY(-14px); }
-    }
-
-    h1 {
-      font-family: 'Cinzel', serif;
-      font-size: clamp(2.2rem, 6vw, 4.5rem);
-      font-weight: 900;
-      letter-spacing: 0.08em;
-      line-height: 1.1;
-      background: linear-gradient(135deg, #fff 0%, var(--sky) 50%, var(--glow) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 1rem;
-      animation: fadeUp 1s ease both;
-    }
-
-    .tagline {
-      font-family: 'Cinzel', serif;
-      font-size: clamp(0.85rem, 2vw, 1.1rem);
-      letter-spacing: 0.4em;
-      text-transform: uppercase;
-      color: var(--sky);
-      opacity: 0.7;
-      margin-bottom: 1.8rem;
-      animation: fadeUp 1s 0.2s ease both;
-    }
-
-    .hero-desc {
-      max-width: 520px;
-      font-size: 1rem;
-      line-height: 1.8;
-      opacity: 0.6;
-      margin-bottom: 3rem;
-      animation: fadeUp 1s 0.4s ease both;
-    }
-
-    .cta-row {
-      display: flex;
-      gap: 1.2rem;
-      flex-wrap: wrap;
-      justify-content: center;
-      animation: fadeUp 1s 0.6s ease both;
-    }
-
-    .btn {
-      padding: 0.75rem 2rem;
-      border-radius: 2px;
-      font-family: 'Raleway', sans-serif;
-      font-size: 0.78rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      text-decoration: none;
-      transition: all 0.3s;
-      cursor: pointer;
-      border: none;
-    }
-
-    .btn-primary {
-      background: var(--sky);
-      color: var(--void);
-      font-weight: 600;
-    }
-    .btn-primary:hover {
-      background: #fff;
-      box-shadow: 0 0 30px rgba(126,200,227,0.4);
-    }
-
-    .btn-outline {
-      background: transparent;
-      color: var(--sky);
-      border: 1px solid var(--border);
-    }
-    .btn-outline:hover {
-      border-color: var(--sky);
-      box-shadow: 0 0 20px rgba(126,200,227,0.15);
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ── DIVIDER ── */
-    .divider {
-      width: 1px;
-      height: 80px;
-      background: linear-gradient(to bottom, transparent, var(--border), transparent);
-      margin: 0 auto;
-      position: relative;
-      z-index: 1;
-    }
-
-    /* ── ABOUT ── */
-    #about {
-      position: relative;
-      z-index: 1;
-      padding: 6rem 2rem;
-      max-width: 760px;
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    .section-label {
-      font-family: 'Raleway', sans-serif;
-      font-size: 0.7rem;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: var(--sky);
-      opacity: 0.5;
-      margin-bottom: 1.2rem;
-    }
-
-    #about h2 {
-      font-family: 'Cinzel', serif;
-      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
-      font-weight: 600;
-      margin-bottom: 1.5rem;
-      color: #e8f4fa;
-    }
-
-    #about p {
-      font-size: 1rem;
-      line-height: 1.9;
-      opacity: 0.6;
-      margin-bottom: 1.2rem;
-    }
-
-    /* ── PILLARS ── */
-    #pillars {
-      position: relative;
-      z-index: 1;
-      padding: 4rem 2rem 6rem;
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-
-    #pillars .section-label { text-align: center; margin-bottom: 3rem; }
-
-    .pillars-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5px;
-      border: 1px solid var(--border);
-    }
-    @media (max-width: 700px) {
-      .pillars-grid { grid-template-columns: 1fr; }
-    }
-
-    .pillar {
-      padding: 2.5rem 2rem;
-      background: var(--mist);
-      border: 1px solid var(--border);
-      transition: background 0.3s;
-    }
-    .pillar:hover { background: rgba(126,200,227,0.12); }
-
-    .pillar-icon {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-      filter: drop-shadow(0 0 10px var(--sky));
-    }
-
-    .pillar h3 {
-      font-family: 'Cinzel', serif;
-      font-size: 1rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      color: var(--sky);
-      margin-bottom: 0.8rem;
-    }
-
-    .pillar p {
-      font-size: 0.88rem;
-      line-height: 1.7;
-      opacity: 0.55;
-    }
-
-    /* ── SOCIAL ── */
-    #connect {
-      position: relative;
-      z-index: 1;
-      padding: 5rem 2rem 8rem;
-      text-align: center;
-    }
-
-    #connect h2 {
-      font-family: 'Cinzel', serif;
-      font-size: clamp(1.4rem, 3vw, 2rem);
-      margin-bottom: 0.8rem;
-      color: #e8f4fa;
-    }
-
-    #connect p {
-      opacity: 0.5;
-      font-size: 0.9rem;
-      margin-bottom: 3rem;
-      letter-spacing: 0.05em;
-    }
-
-    .social-row {
-      display: flex;
-      justify-content: center;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-    }
-
-    .social-card {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.6rem;
-      padding: 2rem 2.5rem;
-      border: 1px solid var(--border);
-      background: var(--mist);
-      text-decoration: none;
-      color: #cce8f4;
-      transition: all 0.3s;
-      min-width: 140px;
-    }
-    .social-card:hover {
-      border-color: var(--sky);
-      background: rgba(126,200,227,0.1);
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(126,200,227,0.1);
-    }
-
-    .social-icon { font-size: 1.8rem; }
-
-    .social-name {
-      font-family: 'Raleway', sans-serif;
-      font-size: 0.72rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      opacity: 0.6;
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-      padding: 2rem;
-      border-top: 1px solid var(--border);
-      font-size: 0.75rem;
-      opacity: 0.3;
-      letter-spacing: 0.1em;
-    }
-
-    footer a { color: inherit; text-decoration: none; }
-    footer a:hover { opacity: 0.7; }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MoonThoughts Hub — Think. Dream. Transcend.</title>
+  <meta name="description" content="Daily doses of history, philosophy, mythology, psychology, science, and mystery. Every post is a portal.">
+  <meta property="og:title" content="MoonThoughts Hub">
+  <meta property="og:description" content="Think. Dream. Transcend. — Daily curiosity across 9 content streams.">
+  <meta property="og:image" content="images/og-image.jpg">
+  <meta property="og:url" content="https://www.moonthoughtshub.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<!-- Starfield canvas -->
-<canvas id="stars"></canvas>
+  <!-- ── STARS ─────────────────────────────────────────────── -->
+  <div class="stars" id="stars"></div>
 
-<nav>
-  <a href="#about">About</a>
-  <a href="#connect">Follow</a>
-  <a href="privacy-policy.html">Privacy</a>
-</nav>
-
-<!-- HERO -->
-<section id="hero">
-  <div class="moon-ring">
-    <span class="moon-symbol">🌙</span>
-  </div>
-  <h1>MoonThoughtsHub</h1>
-  <p class="tagline">Think. Dream. Transcend.</p>
-  <p class="hero-desc">
-    Daily doses of history, motivation, philosophy, mythology, psychology, unsolved mysteries, nature and mind-expanding ideas. The past shaped us. The future awaits.
-  </p>
-  <div class="cta-row">
-    <a href="https://www.instagram.com/moonthoughtshub" class="btn btn-primary" target="_blank">Follow on Instagram</a>
-    <a href="#about" class="btn btn-outline">Explore</a>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- ABOUT -->
-<section id="about">
-  <p class="section-label">Our Mission</p>
-  <h2>Where minds meet the cosmos</h2>
-  <p>
-    MoonThoughtsHub is a daily sanctuary for curious minds. We curate 9 unique content streams — history, motivation, philosophy, psychology, mythology, famous firsts, unsolved mysteries, nature and mind-expanding science.
-  </p>
-  <p>
-    Every post is a portal — a moment to pause, reflect, and see the world through a wider lens. From ancient gods to quantum physics, from forgotten history to the depths of the human mind.
-  </p>
-</section>
-
-<div class="divider"></div>
-
-<!-- PILLARS -->
-<section id="pillars">
-  <p class="section-label">What we share</p>
-  <div class="pillars-grid">
-    <div class="pillar">
-      <div class="pillar-icon">📜</div>
-      <h3>History</h3>
-      <p>On this day across centuries — the events, discoveries, and moments that shaped who we are today.</p>
+  <!-- ── NAV ───────────────────────────────────────────────── -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <span class="moon-icon">🌙</span>
+        <span class="nav-brand">MoonThoughts Hub</span>
+      </a>
+      <div class="nav-links">
+        <a href="about.html">About</a>
+        <a href="#categories">Explore</a>
+        <a href="#follow">Follow</a>
+        <a href="privacy.html">Privacy</a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">☰</button>
     </div>
-    <div class="pillar">
-      <div class="pillar-icon">✨</div>
-      <h3>Motivation</h3>
-      <p>Words that move. Daily inspiration to rise above doubt, embrace growth, and step into your potential.</p>
+    <div class="nav-mobile" id="navMobile">
+      <a href="about.html">About</a>
+      <a href="#categories">Explore</a>
+      <a href="#follow">Follow</a>
+      <a href="privacy.html">Privacy</a>
     </div>
-    <div class="pillar">
-      <div class="pillar-icon">🌌</div>
-      <h3>Mind-Expanding</h3>
-      <p>Space, physics, neuroscience — facts that reframe reality and expand your universe.</p>
-    </div>
-    <div class="pillar">
-      <div class="pillar-icon">🏛️</div>
-      <h3>Philosophy</h3>
-      <p>Stoic wisdom, Eastern insight, existential truth — ancient minds with answers for modern chaos.</p>
-    </div>
-    <div class="pillar">
-      <div class="pillar-icon">🧠</div>
-      <h3>Psychology</h3>
-      <p>Why your brain does what it does. The hidden biases and forces shaping every decision you make.</p>
-    </div>
-    <div class="pillar">
-      <div class="pillar-icon">⚡</div>
-      <h3>Mythology</h3>
-      <p>Greek, Norse, Egyptian — the ancient stories that shaped civilizations and still echo today.</p>
-    </div>
-    <div class="pillar">
-      <div class="pillar-icon">🚀</div>
-      <h3>Famous Firsts</h3>
-      <p>The very first time in history. Milestones that broke the mold and changed everything that followed.</p>
-    </div>
-    <div class="pillar">
-      <div class="pillar-icon">🔍</div>
-      <h3>Unsolved Mysteries</h3>
-      <p>Science still has no answer. The cases, phenomena, and puzzles that baffle experts to this day.</p>
-    </div>
-    <div class="pillar">
-      <div class="pillar-icon">🌿</div>
-      <h3>Nature & Biology</h3>
-      <p>The natural world is stranger than fiction. Extraordinary creatures, ecosystems, and evolution.</p>
-    </div>
-  </div>
-</section>
+  </nav>
 
-<!-- CONNECT -->
-<section id="connect">
-  <p class="section-label">Join the community</p>
-  <h2>Follow the journey</h2>
-  <p>Daily posts across platforms. Pick your universe.</p>
-  <div class="social-row">
-    <a href="https://www.instagram.com/moonthoughtshub" class="social-card" target="_blank">
-      <span class="social-icon">📸</span>
-      <span class="social-name">Instagram</span>
-    </a>
-    <a href="https://www.pinterest.com/moonthoughtshub" class="social-card" target="_blank">
-      <span class="social-icon">📌</span>
-      <span class="social-name">Pinterest</span>
-    </a>
-    <a href="https://www.linkedin.com/company/moonthoughtshub" class="social-card" target="_blank">
-      <span class="social-icon">💼</span>
-      <span class="social-name">LinkedIn</span>
-    </a>
-  </div>
-</section>
+  <!-- ── HERO ──────────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="hero-content">
+      <p class="hero-eyebrow">Welcome to</p>
+      <h1 class="hero-title">MoonThoughts<br><span class="hero-hub">Hub</span></h1>
+      <p class="hero-tagline">Think. Dream. Transcend.</p>
+      <p class="hero-sub">Daily doses of history, philosophy, mythology, psychology,<br class="br-desktop"> science, mystery, and motivation. Every post is a portal.</p>
+      <div class="hero-cta">
+        <a href="https://www.instagram.com/moonthoughtshub/" target="_blank" rel="noopener" class="btn btn-primary">📸 Follow on Instagram</a>
+        <a href="#categories" class="btn btn-ghost">Explore Topics</a>
+      </div>
+    </div>
+    <div class="hero-scroll-hint">
+      <span>↓</span>
+    </div>
+  </section>
 
-<footer>
-  <p>© 2026 MoonThoughtsHub &nbsp;·&nbsp; <a href="privacy-policy.html">Privacy Policy</a></p>
-</footer>
+  <!-- ── MISSION ───────────────────────────────────────────── -->
+  <section class="mission">
+    <div class="container">
+      <h2 class="section-label">Our Mission</h2>
+      <p class="mission-headline">Where minds meet the cosmos</p>
+      <p class="mission-body">MoonThoughts Hub is a daily sanctuary for curious minds. We curate 9 unique content streams — history, motivation, philosophy, psychology, mythology, famous firsts, unsolved mysteries, nature, and mind-expanding science.</p>
+      <p class="mission-body">Every post is a portal — a moment to pause, reflect, and see the world through a wider lens.</p>
+    </div>
+  </section>
 
-<script>
-  // Starfield
-  const canvas = document.getElementById('stars');
-  const ctx    = canvas.getContext('2d');
-  let stars    = [];
+  <!-- ── CATEGORIES ────────────────────────────────────────── -->
+  <section class="categories" id="categories">
+    <div class="container">
+      <h2 class="section-label">9 Content Streams</h2>
+      <p class="section-title">What we explore</p>
+      <div class="grid">
 
-  function resize() {
-    canvas.width  = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
+        <div class="card" data-category="history">
+          <div class="card-icon">🏛️</div>
+          <h3 class="card-title">History</h3>
+          <p class="card-desc">On this day across centuries — the events, discoveries, and moments that shaped who we are today.</p>
+        </div>
 
-  function initStars() {
-    stars = [];
-    for (let i = 0; i < 220; i++) {
-      stars.push({
-        x:   Math.random() * canvas.width,
-        y:   Math.random() * canvas.height,
-        r:   Math.random() * 1.4 + 0.2,
-        a:   Math.random(),
-        spd: Math.random() * 0.003 + 0.001,
-        phase: Math.random() * Math.PI * 2
-      });
-    }
-  }
+        <div class="card" data-category="motivation">
+          <div class="card-icon">🔥</div>
+          <h3 class="card-title">Motivation</h3>
+          <p class="card-desc">Words that move. Daily inspiration to rise above doubt, embrace growth, and step into your potential.</p>
+        </div>
 
-  function drawStars(t) {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    stars.forEach(s => {
-      const alpha = 0.3 + 0.5 * Math.sin(t * s.spd + s.phase);
-      ctx.beginPath();
-      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(180, 220, 255, ${alpha})`;
-      ctx.fill();
-    });
-    requestAnimationFrame(drawStars);
-  }
+        <div class="card" data-category="mind-expanding">
+          <div class="card-icon">🌌</div>
+          <h3 class="card-title">Mind-Expanding</h3>
+          <p class="card-desc">Space, physics, neuroscience — facts that reframe reality and expand your universe.</p>
+        </div>
 
-  window.addEventListener('resize', () => { resize(); initStars(); });
-  resize();
-  initStars();
-  requestAnimationFrame(drawStars);
-</script>
+        <div class="card" data-category="philosophy">
+          <div class="card-icon">⚖️</div>
+          <h3 class="card-title">Philosophy</h3>
+          <p class="card-desc">Stoic wisdom, Eastern insight, existential truth — ancient minds with answers for modern chaos.</p>
+        </div>
+
+        <div class="card" data-category="psychology">
+          <div class="card-icon">🧠</div>
+          <h3 class="card-title">Psychology</h3>
+          <p class="card-desc">Why your brain does what it does. The hidden biases and forces shaping every decision you make.</p>
+        </div>
+
+        <div class="card" data-category="mythology">
+          <div class="card-icon">⚡</div>
+          <h3 class="card-title">Mythology</h3>
+          <p class="card-desc">Greek, Norse, Egyptian — the ancient stories that shaped civilizations and still echo today.</p>
+        </div>
+
+        <div class="card" data-category="famous-firsts">
+          <div class="card-icon">🚀</div>
+          <h3 class="card-title">Famous Firsts</h3>
+          <p class="card-desc">The very first time in history. Milestones that broke the mold and changed everything that followed.</p>
+        </div>
+
+        <div class="card" data-category="mysteries">
+          <div class="card-icon">🔍</div>
+          <h3 class="card-title">Unsolved Mysteries</h3>
+          <p class="card-desc">Science still has no answer. The cases, phenomena, and puzzles that baffle experts to this day.</p>
+        </div>
+
+        <div class="card" data-category="nature">
+          <div class="card-icon">🌿</div>
+          <h3 class="card-title">Nature & Biology</h3>
+          <p class="card-desc">The natural world is stranger than fiction. Extraordinary creatures, ecosystems, and evolution.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOLLOW ─────────────────────────────────────────────── -->
+  <section class="follow" id="follow">
+    <div class="container">
+      <h2 class="section-label">Join Us</h2>
+      <p class="section-title">Follow the journey</p>
+      <p class="follow-sub">Daily posts across platforms. Pick your universe.</p>
+      <div class="follow-links">
+        <a href="https://www.instagram.com/moonthoughtshub/" target="_blank" rel="noopener" class="follow-btn">
+          <span class="follow-icon">📸</span>
+          <span class="follow-text"><strong>Instagram</strong><small>@moonthoughtshub</small></span>
+        </a>
+        <a href="https://www.pinterest.com/moonthoughtshub/" target="_blank" rel="noopener" class="follow-btn">
+          <span class="follow-icon">📌</span>
+          <span class="follow-text"><strong>Pinterest</strong><small>@moonthoughtshub</small></span>
+        </a>
+        <a href="https://www.linkedin.com/company/moonthoughtshub/" target="_blank" rel="noopener" class="follow-btn">
+          <span class="follow-icon">💼</span>
+          <span class="follow-text"><strong>LinkedIn</strong><small>MoonThoughts Hub</small></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ─────────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <a href="index.html" class="footer-logo">🌙 MoonThoughts Hub</a>
+      <p class="footer-tagline">Think. Dream. Transcend.</p>
+      <div class="footer-links">
+        <a href="about.html">About</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="https://www.instagram.com/moonthoughtshub/" target="_blank" rel="noopener">Instagram</a>
+      </div>
+      <p class="footer-copy">© 2026 MoonThoughts Hub · <a href="https://www.moonthoughtshub.com">moonthoughtshub.com</a></p>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
 </body>
 </html>
