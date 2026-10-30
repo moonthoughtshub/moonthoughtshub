@@ -90,7 +90,18 @@ img { display: block; max-width: 100%; }
   letter-spacing: 0.04em;
 }
 .nav-logo:hover { color: var(--gold); }
-.moon-icon { font-size: 1.3rem; }
+.moon-icon { font-size: 1.3rem; cursor: pointer; border-radius: 50%; transition: filter 0.4s ease, transform 0.4s ease; }
+/* Easter egg (main.js): the moon plays the theme. A faint glow on hover is the only hint. */
+.moon-icon:hover { filter: drop-shadow(0 0 6px rgba(201, 168, 76, 0.55)); }
+.moon-icon:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+.moon-icon.playing { animation: moonglow 3.2s ease-in-out infinite; }
+@keyframes moonglow {
+  0%, 100% { filter: drop-shadow(0 0 4px rgba(201, 168, 76, 0.45)); transform: scale(1); }
+  50%       { filter: drop-shadow(0 0 12px rgba(201, 168, 76, 0.9)); transform: scale(1.08); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .moon-icon.playing { animation: none; filter: drop-shadow(0 0 8px rgba(201, 168, 76, 0.8)); }
+}
 .nav-links {
   display: flex;
   gap: 32px;
